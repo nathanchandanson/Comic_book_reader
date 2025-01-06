@@ -59,24 +59,26 @@ BDReader/
 │
 ├── src/                    # Code source principal
 │   ├── backend/            # Gestion des fichiers .cbr/.cbz et extraction des données
-│   │   ├── ArchiveHandler.cpp
-│   │   ├── ArchiveHandler.h
+│   │   ├── Archive.cpp
+│   │   ├── Archive.hpp
+<!-- │   │   ├── Image.cpp
+│   │   ├── Image.hpp
 │   │   ├── MetadataExtractor.cpp
-│   │   └── MetadataExtractor.h
+│   │   └── MetadataExtractor.hpp -->
 │   │
 │   ├── gui/                # Interface utilisateur avec Qt
 │   │   ├── MainWindow.cpp
-│   │   └── MainWindow.h
+│   │   └── MainWindow.hpp
 │   │
 │   ├── models/             # Structures de données et modèles pour les BD
 │   │   ├── ComicBook.cpp
-│   │   └── ComicBook.h
+│   │   └── ComicBook.hpp
 │   │
 <!-- │   ├── utils/              # Fonctions utilitaires génériques
 │   │   ├── FileUtils.cpp
-│   │   ├── FileUtils.h
+│   │   ├── FileUtils.hpp
 │   │   ├── ImageUtils.cpp
-│   │   └── ImageUtils.h -->
+│   │   └── ImageUtils.hpp -->
 │   │
 │   ├── main.cpp            # Point d'entrée du programme
 │   └── CMakeLists.txt      # Configuration CMake pour ce dossier
