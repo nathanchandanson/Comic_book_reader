@@ -18,6 +18,14 @@ public:
     MainWindow(QWidget *parent = 0);
 
     void showImage(Image image) { m_pageViewer->showImage(image); }
+
+signals: // Lier avec les signaux des components.
+    void nextPagePressed();
+    void previousPagePressed();
+    void pageSliderValueChanged(int page);
+
+public slots:
+    void updatePageChanges(Image newPage, int newPageNumber, int maxPage);
 };
 
 #endif

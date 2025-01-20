@@ -32,6 +32,7 @@ private:
 public: 
     PageDisplay(QWidget *parent = 0);
 
+public slots:
     void showImage(Image image);
 };
 
@@ -50,6 +51,15 @@ private:
 
 public:
     BottomBar(QWidget *parent = 0);
+
+signals:
+    void nextPagePressed();
+    void previousPagePressed();
+    void pageSliderValueChanged(int page);
+
+public slots:
+    void updatePageSlider(int page, int maxPage);
+    void updatePageIndicator(int page, int maxPage);
 };
 
 #endif
