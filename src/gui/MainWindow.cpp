@@ -12,10 +12,14 @@ MainWindow::MainWindow(QWidget *parent)
     m_bottomBar = new BottomBar(this);
     m_pageViewer = new PageDisplay(this);
 
-    // Connecting all the signals to the components signals
+    // Connecting all the signals that go at the exterior of MainWindow
     connect(m_bottomBar, &BottomBar::nextPagePressed, this, &MainWindow::nextPagePressed);
     connect(m_bottomBar, &BottomBar::previousPagePressed, this, &MainWindow::previousPagePressed);
     connect(m_bottomBar, &BottomBar::pageSliderValueChanged, this, &MainWindow::pageSliderValueChanged);
+    // Connecting all the signals that are intern to MainWindow
+    connect(m_bottomBar, &BottomBar::rotatePressed, m_pageViewer, &PageDisplay::rotate);
+    connect(m_bottomBar, &BottomBar::zoomOutPressed, m_pageViewer, &PageDisplay::zoomOut);
+    connect(m_bottomBar, &BottomBar::zoomInPressed, m_pageViewer, &PageDisplay::zoomIn);
 
     // Arrange the widgets within a QGridLayout
     QGridLayout *mainWindowGridLayout = new QGridLayout(this);
