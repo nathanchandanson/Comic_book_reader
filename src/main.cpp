@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include <QApplication>
+#include <QFile>
+#include <QDir>
 
 #include "Datatypes.hpp"
 #include "MainWindow.hpp"
@@ -8,6 +10,12 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    
+    QFile styleSheet("../data/stylesheet.qss");
+    styleSheet.open(QFile::ReadOnly | QFile::Text);
+    app.setStyleSheet(styleSheet.readAll());
+    styleSheet.close();
+ 
 
     MainWindow theWindow;
     Comic theComic;
