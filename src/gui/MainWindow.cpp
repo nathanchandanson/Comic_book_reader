@@ -27,7 +27,6 @@ MainWindow::MainWindow(QWidget *parent)
 /* Update label et view on pageChanged */
 void MainWindow::updatePageChanges(Image newPage, int newPageNumber, int maxPage)
 {
-    std::cout<<newPageNumber<<","<<maxPage<<std::endl<<std::endl;
     this->showImage(newPage);
     m_bottomBar->updatePageSlider(newPageNumber, maxPage);
     m_bottomBar->updatePageIndicator(newPageNumber, maxPage);
