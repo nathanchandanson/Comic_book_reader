@@ -16,7 +16,8 @@ int main(int argc, char *argv[])
     theComic.setPageNumber(0);
     theComic.setMaxPageNumber(0);
     theComic.addPage(QPixmap("../data/comics/testImage1.jpg"), 0);
-    theComic.addPage(QPixmap("../data/comics/testImage2.jpg"), 1);    
+    theComic.addPage(QPixmap("../data/comics/testImage2.jpg"), 1);
+    theComic.addPage(QPixmap("../data/comics/testImage3.jpg"), 2);   
     
     // Connexion des signaux et slots
     // MainWindow vers Comic

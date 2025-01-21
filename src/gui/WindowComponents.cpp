@@ -37,8 +37,8 @@ BottomBar::BottomBar(QWidget *parent)
 {
     // Create the slider
     m_pageSlider = new QSlider(Qt::Horizontal, this);
-    m_pageSlider->setRange(1,1);
-    m_pageSlider->setValue(1);
+    m_pageSlider->setRange(0,0);
+    m_pageSlider->setValue(0);
 
     // Create the page text zone
     m_currentPage = new QLabel(this);
@@ -71,8 +71,8 @@ BottomBar::BottomBar(QWidget *parent)
 /* Update du slider */
 void BottomBar::updatePageSlider(int page, int maxPage)
 {
-    m_pageSlider->setValue(page+1);
-    m_pageSlider->setMaximum(maxPage);
+    m_pageSlider->setValue(page);
+    m_pageSlider->setMaximum(maxPage-1);
 }
 
 /* Update du label */
