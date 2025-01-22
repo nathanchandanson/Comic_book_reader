@@ -1,13 +1,21 @@
 #include <iostream>
 
 #include <QApplication>
+#include <QFile>
+#include <QDir>
 
 #include "Datatypes.hpp"
 #include "MainWindow.hpp"
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    
+    QFile styleSheet("../data/stylesheet.qss");
+    styleSheet.open(QFile::ReadOnly | QFile::Text);
+    app.setStyleSheet(styleSheet.readAll());
+    styleSheet.close();
+ 
 
     MainWindow theWindow;
     Comic theComic;
@@ -16,7 +24,8 @@ int main(int argc, char* argv[])
     theComic.setPageNumber(0);
     theComic.setMaxPageNumber(0);
     theComic.addPage(QPixmap("../data/comics/testImage1.jpg"), 0);
-    theComic.addPage(QPixmap("../data/comics/testImage2.jpg"), 1);    
+    theComic.addPage(QPixmap("../data/comics/testImage2.jpg"), 1);
+    theComic.addPage(QPixmap("../data/comics/testImage3.jpg"), 2);   
     
     // Connexion des signaux et slots
     // MainWindow vers Comic

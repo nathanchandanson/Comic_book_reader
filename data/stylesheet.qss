@@ -1,0 +1,158 @@
+/*-----QWidget-----*/
+QWidget
+{
+	background-color: #242424;
+	color: #fff;
+	selection-background-color: #fff;
+	selection-color: #000;
+
+}
+
+
+/*-----QLabel-----*/
+QLabel
+{
+	background-color: transparent;
+   font-size: 16px;
+	color: #fff;
+}
+
+
+/*-----QPushButton-----*/
+QPushButton
+{
+	background-color: #4891b4;
+	color: #fff;
+	border-radius: 4px;
+	padding: 8px;
+
+}
+
+QPushButton::hover
+{
+	background-color: #54aad3;
+	border: 1px solid #46a2da;
+
+}
+
+QPushButton::pressed
+{
+	background-color: #2385b4;
+	border: 1px solid #46a2da;
+
+}
+
+/*-----QSlider-----*/
+/* Stylise la zone de défilement */
+QSlider::groove:horizontal {
+    border: transparent;
+    height: 16px; /* Hauteur de la "barre" */
+    border-radius: 8px; /* Coins arrondis */
+}
+
+/* Stylise la poignée glissante */
+QSlider::handle:horizontal {
+    background: #0078D7; /* Couleur de la poignée */
+    border: 1px solid #46a2da;
+    width: 16px; /* Largeur de la poignée */
+    height: 18px; /* Hauteur de la poignée */
+    border-radius: 9px; /* Rond si égal à la moitié de la hauteur/largeur */
+    margin: -4px 0; /* Pour recentrer le bouton dans la barre */
+}
+
+/* Ajout d'un hover pour la poignée */
+QSlider::handle:horizontal:hover {
+    background: #005bb5; /* Couleur au survol */
+}
+
+/* Partie gauche de la poignée (valeur atteinte) */
+QSlider::sub-page:horizontal {
+    background: #4891b4; /* Couleur de progression */
+    border-radius: 9px;
+}
+
+/* Partie droite de la poignée (valeur restante) */
+QSlider::add-page:horizontal {
+    background: #5d5f60; /* Couleur de la partie restante */
+    border-radius: 4px;
+}
+
+
+/*-----QScrollBar-----*/
+QScrollBar:vertical 
+{
+   border: none;
+   width: 15px;
+}
+
+QScrollBar::handle:vertical 
+{
+   border: none;
+   border-radius : 0px;
+   background-color: #7a7a7a;
+   min-height: 80px;
+   width : 15px;
+}
+
+QScrollBar::handle:vertical:pressed
+{
+   background-color: #5d5f60; 
+}
+
+QScrollBar::up-arrow:vertical
+{
+   width: 0px;
+   height: 0px;
+   background: transparent;
+}
+
+QScrollBar::down-arrow:vertical 
+{
+   width: 0px;
+   height: 0px;
+   background: transparent;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical
+{
+   background-color: #222222;
+}
+
+QScrollBar:horizontal 
+{
+   border: none;
+   height: 15px;
+}
+
+QScrollBar::handle:horizontal 
+{
+   border: none;
+   border-radius : 0px;
+   background-color: #7a7a7a;
+   min-height: 80px;
+   height : 15px;
+}
+
+QScrollBar::handle:horizontal:pressed
+{
+   background-color: #5d5f60; 
+}
+
+QScrollBar::up-arrow:horizontal
+{
+   width: 0px;
+   height: 0px;
+   background: transparent;
+}
+
+QScrollBar::down-arrow:horizontal 
+{
+   width: 0px;
+   height: 0px;
+   background: transparent;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
+{
+   background-color: #222222;
+}
