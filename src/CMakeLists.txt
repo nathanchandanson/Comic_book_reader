@@ -18,11 +18,20 @@ include_directories(
 
 target_sources(ComicBookReader PRIVATE ${SOURCES})
 
+# Vérifier et lier libarchive
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBARCHIVE REQUIRED libarchive)
+
 # Lier Qt et les dépendances tierces
 target_link_libraries(ComicBookReader PRIVATE
     Qt6::Widgets
     Qt6::Core
     Qt6::Gui
+    ${LIBARCHIVE_LIBRARIES}  # Lier libarchive
 )
 
+# Inclure les répertoires d'en-têtes de libarchive
+include_directories(${LIBARCHIVE_INCLUDE_DIRS})
 
+# Optionnel : Ajouter les répertoires de bibliothèques de libarchive si nécessaire
+link_directories(${LIBARCHIVE_LIBRARY_DIRS})
