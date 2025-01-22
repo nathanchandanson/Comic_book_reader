@@ -35,3 +35,6 @@ include_directories(${LIBARCHIVE_INCLUDE_DIRS})
 
 # Optionnel : Ajouter les répertoires de bibliothèques de libarchive si nécessaire
 link_directories(${LIBARCHIVE_LIBRARY_DIRS})
+
+# Créer un dossier avec toutes les données utilisateur
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/users_data)
