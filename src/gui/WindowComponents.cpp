@@ -93,6 +93,7 @@ BottomBar::BottomBar(QWidget *parent)
 
     // Arrange the widgets within a QGridLayout
     QGridLayout *bottomBarGridLayout = new QGridLayout(this);
+    bottomBarGridLayout->setHorizontalSpacing(20);
     bottomBarGridLayout->addWidget(m_pageSlider, 0,0);
     bottomBarGridLayout->addWidget(m_currentPage, 0,1);
     bottomBarGridLayout->addWidget(m_prevPageButton, 0,2);

@@ -13,6 +13,7 @@ QWidget
 QLabel
 {
 	background-color: transparent;
+   font-size: 16px;
 	color: #fff;
 }
 
@@ -45,17 +46,17 @@ QPushButton::pressed
 /* Stylise la zone de défilement */
 QSlider::groove:horizontal {
     border: transparent;
-    height: 10px; /* Hauteur de la "barre" */
-    border-radius: 4px; /* Coins arrondis */
+    height: 16px; /* Hauteur de la "barre" */
+    border-radius: 8px; /* Coins arrondis */
 }
 
 /* Stylise la poignée glissante */
 QSlider::handle:horizontal {
     background: #0078D7; /* Couleur de la poignée */
-    border: 1px solid #5c5c5c;
+    border: 1px solid #46a2da;
     width: 16px; /* Largeur de la poignée */
-    height: 16px; /* Hauteur de la poignée */
-    border-radius: 8px; /* Rond si égal à la moitié de la hauteur/largeur */
+    height: 18px; /* Hauteur de la poignée */
+    border-radius: 9px; /* Rond si égal à la moitié de la hauteur/largeur */
     margin: -4px 0; /* Pour recentrer le bouton dans la barre */
 }
 
@@ -67,7 +68,7 @@ QSlider::handle:horizontal:hover {
 /* Partie gauche de la poignée (valeur atteinte) */
 QSlider::sub-page:horizontal {
     background: #4891b4; /* Couleur de progression */
-    border-radius: 4px;
+    border-radius: 9px;
 }
 
 /* Partie droite de la poignée (valeur restante) */
