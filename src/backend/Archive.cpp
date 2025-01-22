@@ -40,7 +40,7 @@ bool ComicExtractor::openComic()
     PageNames.clear(); // Réinitialise le nom des pages
     PageNumberToName.clear(); // Réinitialise le dictionnaire qui associe le nom de la page à son numéro
 
-    int PageNumber = 1; // Si on commence la numérotation des pages à 1
+    int PageNumber = 0; // Si on commence la numérotation des pages à 0
     while(archive_read_next_header(ComicReader, &entry) == ARCHIVE_OK)
     {
         const char* PageName = archive_entry_pathname(entry); // Permet de récupérer le nom du fichier, puis de l'ajouter à la liste de noms PageNames

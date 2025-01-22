@@ -25,6 +25,7 @@ PageDisplay::PageDisplay(QWidget *parent)
 /* Affichage d'une page */
 void PageDisplay::showImage(Image image)
 {
+    m_middleScene->clear();
     m_middleScene->addPixmap(image);
 }
 

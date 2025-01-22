@@ -19,6 +19,8 @@ private:
     unsigned int m_maxPageNumber;
 
 public:
+    Comic(): m_pageNumber(0), m_maxPageNumber(0)
+    {};
     void setMaxPageNumber(int maxPage){ m_maxPageNumber = maxPage; };
     void addPage(Image thePage, int thePageNumber) { m_pages.emplace(m_pages.begin() + thePageNumber, thePage); m_maxPageNumber++; };
 
