@@ -34,6 +34,9 @@ public:
 
 public slots:
     void showImage(Image image);
+    void rotate();
+    void zoomIn();
+    void zoomOut();
 };
 
 /*
@@ -48,6 +51,9 @@ private:
     QLabel *m_currentPage;
     QPushButton *m_prevPageButton;
     QPushButton *m_nextPageButton;
+    QPushButton *m_rotateButton;
+    QPushButton *m_zoomOutButton;
+    QPushButton *m_zoomInButton;
 
 public:
     BottomBar(QWidget *parent = 0);
@@ -55,7 +61,11 @@ public:
 signals:
     void nextPagePressed();
     void previousPagePressed();
+    void zoomInPressed();
+    void zoomOutPressed();
+    void rotatePressed();
     void pageSliderValueChanged(int page);
+
 
 public slots:
     void updatePageSlider(int page, int maxPage);
