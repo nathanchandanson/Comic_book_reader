@@ -1,6 +1,7 @@
 #include "WindowComponents.hpp"
 
 #include <QGridLayout>
+#include <QScrollBar>
 
 /*
  *  Top bar
@@ -26,7 +27,9 @@ PageDisplay::PageDisplay(QWidget *parent)
 void PageDisplay::showImage(Image image)
 {
     m_middleScene->clear();
-    m_middleScene->addPixmap(image);
+    QGraphicsPixmapItem *item = m_middleScene->addPixmap(image);
+    m_middleView->setSceneRect(image.rect());           // Centre l'image dans la scène
+    m_middleView->verticalScrollBar()->setValue(0);   // Reset du scroll pour se mettre en haut de la page
 }
 
 /* Rotate */
