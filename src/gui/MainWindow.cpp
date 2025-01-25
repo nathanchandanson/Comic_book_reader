@@ -9,8 +9,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setWindowTitle("Comic Book Reader");
     
-    m_bottomBar = new BottomBar(this);
+    m_topBar = new TopBar(this);
     m_pageViewer = new PageDisplay(this);
+    m_bottomBar = new BottomBar(this);
 
     // Connecting all the signals that go at the exterior of MainWindow
     connect(m_bottomBar, &BottomBar::nextPagePressed, this, &MainWindow::nextPagePressed);
@@ -23,8 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Arrange the widgets within a QGridLayout
     QGridLayout *mainWindowGridLayout = new QGridLayout(this);
-    mainWindowGridLayout->addWidget(m_bottomBar, 1,0);
-    mainWindowGridLayout->addWidget(m_pageViewer, 0,0);
+    mainWindowGridLayout->addWidget(m_topBar, 0,0);
+    mainWindowGridLayout->addWidget(m_bottomBar, 2,0);
+    mainWindowGridLayout->addWidget(m_pageViewer, 1,0);
     setLayout(mainWindowGridLayout);
 }
 

@@ -17,9 +17,11 @@ private:
     std::vector<Image> m_pages;
     unsigned int m_pageNumber;               // La première page est à l'index 0 de m_pages
     unsigned int m_maxPageNumber;
+    std::vector<Image> m_filteredPages;
+    char filtersWanted;
 
 public:
-    Comic(): m_pageNumber(0), m_maxPageNumber(0)
+    Comic(): m_pageNumber(0), m_maxPageNumber(0), filtersWanted(0)
     {};
     void setMaxPageNumber(int maxPage){ m_maxPageNumber = maxPage; };
     void addPage(Image thePage, int thePageNumber) { m_pages.emplace(m_pages.begin() + thePageNumber, thePage); m_maxPageNumber++; };

@@ -13,10 +13,29 @@
 #include <QPixmap>
 #include <QIcon>
 #include <QLabel>
+#include <QMenu>
 
 /*
  *  Top bar
 */
+class TopBar : public QWidget
+{
+    Q_OBJECT
+
+private: 
+    QPushButton *m_filterMenuButton;
+    QMenu *m_filterMenu;
+    char m_filters;
+
+public:
+    TopBar(QWidget *parent = 0);
+
+signals:
+    void filtersChanged(char filters);
+
+public slots:
+    // void updateFilters();
+};
 
 /*
  *  Middle section

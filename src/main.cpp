@@ -8,22 +8,6 @@
 #include "Datatypes.hpp"
 #include "MainWindow.hpp"
 
-// int main(int argc, char *argv[])
-// {
-
-//     
-
-
-//     
-//     theComic.addPage(QPixmap("../data/comics/testImage2.jpg"), 1);
-//     theComic.addPage(QPixmap("../data/comics/testImage3.jpg"), 2);   
-    
-
-    
-
-//     
-// }
-
 int main(int argc, char* argv[])
 {
     /* Setup GUI utilities*/
@@ -37,7 +21,7 @@ int main(int argc, char* argv[])
     styleSheet.close();
 
 
-    /* Setup the Comic */
+    /* Seting up the Comic */
     Comic theComic;
     // Connexion des signaux et slots
     // MainWindow vers Comic

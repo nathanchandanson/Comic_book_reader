@@ -2,10 +2,45 @@
 
 #include <QGridLayout>
 #include <QScrollBar>
+#include <QMenu>
+#include <QWidgetAction>
+#include <QCheckBox>
 
 /*
  *  Top bar
 */
+/* Constructeur */
+TopBar::TopBar(QWidget *parent)
+    : QWidget(parent), m_filters(0)
+{
+    /* Menu filtres */
+    m_filterMenuButton= new QPushButton("Filtres", this);
+    m_filterMenu = new QMenu(m_filterMenuButton);
+
+    // Bouton Contraste
+    QWidgetAction* option1Action = new QWidgetAction(m_filterMenu);
+    QCheckBox* option = new QCheckBox("Contraste");
+    option1Action->setDefaultWidget(option);
+    m_filterMenu->addAction(option1Action);
+    // Bouton Saturation
+    QWidgetAction* option2Action = new QWidgetAction(m_filterMenu);
+    QCheckBox* option2 = new QCheckBox("Saturation");
+    option2Action->setDefaultWidget(option2);
+    m_filterMenu->addAction(option2Action);
+
+    // Associer le menu au bouton
+    m_filterMenuButton->setMenu(m_filterMenu);
+    // Limiter la taille du bouton
+    m_filterMenuButton->setMaximumWidth(100);  // Largeur maximale de 100 pixels
+
+    /* Connexion des signaux */
+    // connect(m_filterMenu, &QPushButton::clicked, this, &BottomBar::nextPagePressed);
+
+    /* Mise en page */
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    layout->addWidget(m_filterMenuButton);
+    setLayout(layout);
+}
 
 /*
  *  Middle section

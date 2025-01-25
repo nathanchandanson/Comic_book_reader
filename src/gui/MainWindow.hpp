@@ -10,9 +10,9 @@ class MainWindow : public QWidget
     Q_OBJECT
 
 private:
-    BottomBar *m_bottomBar;
-
+    TopBar *m_topBar;
     PageDisplay *m_pageViewer;
+    BottomBar *m_bottomBar;
 
 public: 
     MainWindow(QWidget *parent = 0);
