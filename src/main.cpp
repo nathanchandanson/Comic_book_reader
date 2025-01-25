@@ -1,4 +1,5 @@
 #include <iostream>
+#include <thread>
 
 #include <QApplication>
 #include <QFile>
@@ -7,22 +8,6 @@
 #include "Archive.hpp"
 #include "Datatypes.hpp"
 #include "MainWindow.hpp"
-
-// int main(int argc, char *argv[])
-// {
-
-//     
-
-
-//     
-//     theComic.addPage(QPixmap("../data/comics/testImage2.jpg"), 1);
-//     theComic.addPage(QPixmap("../data/comics/testImage3.jpg"), 2);   
-    
-
-    
-
-//     
-// }
 
 int main(int argc, char* argv[])
 {
@@ -37,8 +22,17 @@ int main(int argc, char* argv[])
     styleSheet.close();
 
 
-    /* Setup the Comic */
-    Comic theComic;
+    /* Setup extraction utilities */
+    ComicExtractor reader("../data/comics/onePiece004.cbz");
+    if(!reader.openComic()){return 1;}
+
+    std::vector<std::string> pages = reader.listPages();
+    // std::cout<< "Pages dans l'archive:\n";
+    // for(const auto& page: pages) { std::cout<< "- "<< page <<std::endl;}
+
+
+    /* Setting up the Comic */
+    Comic theComic(pages.size());   // On donne le nombre de pages
     // Connexion des signaux et slots
     // MainWindow vers Comic
     QObject::connect(&theWindow, &MainWindow::nextPagePressed, &theComic, &Comic::incrementPageNumber);
@@ -46,26 +40,20 @@ int main(int argc, char* argv[])
     QObject::connect(&theWindow, &MainWindow::pageSliderValueChanged, &theComic, &Comic::setPageNumber);
     // Comic vers MainWindow
     QObject::connect(&theComic, &Comic::pageChanged, &theWindow, &MainWindow::updatePageChanges);
+    // ComicExtractor vers Comic
+    QObject::connect(&reader, &ComicExtractor::newPageExtracted, &theComic, &Comic::addPage);
+    // Comic vers ComicExtractor
+    QObject::connect(&theComic, &Comic::pageChanged, &reader, &ComicExtractor::updateCurrentPage);
 
 
-    /* Setup extraction utilities */
-    ComicExtractor reader("../../data/comics/onePiece005.cbz");
-    if(!reader.openComic()){return 1;}
+    /* Thread d'extraction des pages */
+    std::thread extractionThread(&ComicExtractor::extractAllPages, &reader);
 
-    std::vector<std::string> pages = reader.listPages();
-    std::cout<< "Pages dans l'archive:\n";
-    for(const auto& page: pages) { std::cout<< "- "<< page <<std::endl;}
-
-
-    /* Extracting all the pages */
-    for(int i = 0; i < pages.size(); i++){
-        reader.extractPageByNumber(i, "../users_data");
-        QString currentPagePath("../users_data/");
-        currentPagePath += pages[i];
-        theComic.addPage(QPixmap(currentPagePath), i);
-    }
 
     /* Launching the app */
     theWindow.show();
-    return app.exec();
+    app.exec();
+    extractionThread.join();
+    
+    return 0;
 }

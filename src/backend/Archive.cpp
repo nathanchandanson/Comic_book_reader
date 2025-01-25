@@ -6,10 +6,7 @@
 
 #include <filesystem>
 
-
-
-
-ComicExtractor::ComicExtractor(const std::string& ComicPath): ComicPath(ComicPath), ComicReader(nullptr), ComicWriter(nullptr)
+ComicExtractor::ComicExtractor(const std::string& ComicPath): ComicPath(ComicPath), ComicReader(nullptr), ComicWriter(nullptr), currentPageChanged(false), allPagesExtracted(false)
 {}
 ComicExtractor::~ComicExtractor()
 {
@@ -50,6 +47,8 @@ bool ComicExtractor::openComic()
     }
     archive_read_free(ComicReader);
     ComicReader = nullptr;
+
+    extractedPages.resize(PageNames.size(), false); 
     return true;
 }
 
@@ -141,6 +140,30 @@ bool ComicExtractor::extractPageByNumber(int PageNumber, const std::string& outp
     return extractPage(it->second, outputDir);
 }
 
+void ComicExtractor::extractAllPages()
+{
+    int numPages = extractedPages.size();
+    int i;
+    while(!allPagesExtracted)
+    {
+        i = 0;
+        for(; i<numPages; i++)
+        {
+            if(currentPageChanged){ currentPageChanged = false; break; }    // Si la page a changé, on doit repartir de la nouvelle page
+            if(!extractedPages[(currentPage+i)%numPages]){ // Si la page n'a pas encore été extraite
+                extractPageByNumber((currentPage+i)%numPages, "../users_data");
+                extractedPages[(currentPage+i)%numPages] = true;
+                QString currentPagePath("../users_data/");
+                currentPagePath += PageNames[(currentPage+i)%numPages];
+                emit newPageExtracted(QPixmap(currentPagePath), (currentPage+i)%numPages);
+            }
+        }
+        if(i == numPages){ allPagesExtracted = true; return; }
+    }
+    return;
+}
+
+
 bool ComicGenerator::generateFromDirectory(const std::string& inputDir, const std::string& outputDir)
 {
     namespace fs = std::filesystem;
@@ -215,10 +238,3 @@ bool ComicGenerator::generateFromDirectory(const std::string& inputDir, const st
     std::cout << "Archive créée avec succès à l'emplacement : " << outputFilePath << std::endl;
     return true;
 }
-
-
-
-
-
-
-
