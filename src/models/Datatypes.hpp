@@ -21,8 +21,9 @@ private:
 public:
     Comic(): m_pageNumber(0), m_maxPageNumber(0)
     {};
+    Comic(int numberOfPages): m_pageNumber(0), m_maxPageNumber(numberOfPages)
+    { m_pages.resize(m_maxPageNumber); };
     void setMaxPageNumber(int maxPage){ m_maxPageNumber = maxPage; };
-    void addPage(Image thePage, int thePageNumber) { m_pages.emplace(m_pages.begin() + thePageNumber, thePage); m_maxPageNumber++; };
 
     unsigned int getPageNumber() { return m_pageNumber; };
     unsigned int getMaxPageNumber() { return m_maxPageNumber; };
@@ -35,6 +36,7 @@ public slots:
     void setPageNumber(int page);
     void incrementPageNumber();
     void decrementPageNumber();
+    void addPage(Image thePage, int thePageNumber) { m_pages[thePageNumber] = thePage; };
 };
 
 
