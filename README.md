@@ -3,7 +3,7 @@
 Installer toutes les dépendances nécessaires à Qt6 et à la compilation
 ```bash
 sudo apt-get updates
-sudo apt install build-essential cmake libgl1-mesa-dev libxkbcommon-x11-0 libxcb-icccm libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-shape0 libxcb-cursor0 libxcb-cursor-dev libarchive-dev pkg-config
+sudo apt install build-essential cmake libgl1-mesa-dev libxkbcommon-x11-0 libxcb-icccm libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-shape0 libxcb-cursor0 libxcb-cursor-dev libarchive-dev pkg-config tesseract-ocr libtesseract-dev
 ```
 
 ## Installer Qt

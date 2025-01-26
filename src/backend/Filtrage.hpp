@@ -3,6 +3,8 @@
 #define FILTRAGE_HPP
 
 #include <QImage>
+#include <tesseract/baseapi.h>
+#include <leptonica/allheaders.h>
 
 bool isTextDominant(const QImage& image); // Fonction qui permet de déterminer si une image est davantage textuelle (True) ou graphique (False), en estimant la quantité de texte présente sur l'image
 QImage sharpenImage(const QImage& image); // Filtre qui augmente la netteté pour les images davantages textuelles

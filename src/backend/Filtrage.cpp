@@ -7,9 +7,6 @@
 #include <QPixmap>
 #include <QImage>
 
-#include <tesseract/baseapi.h> // Utilisée pour faire la reconnaissance de texte sur les images
-#include <leptonica/allheaders.h> // Utilisée par Tesseract pour manipuler les données d'image
-
 // Pour les filtres:
 #include <QtGui>
 #include <QGraphicsEffect>
