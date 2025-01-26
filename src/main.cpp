@@ -31,14 +31,10 @@
 //int argc, char* argv[]
 int main(int argc, char* argv[])
 {
-    printf("ok4\n");
-    printf("ok5\n");
+
     QApplication app(argc, argv);
-    printf("ok3\n");
     const QString imagePath = "/home/hugodush/Projet_C++/Comic_book_reader/data/comics/testImage2.jpg";  // Remplacer par ton fichier JPEG
-    printf("ok1\n");
     QPixmap pixmap(imagePath);
-    printf("ok2\n");
     if (pixmap.isNull()) {
         std::cerr << "Erreur de chargement de l'image" << std::endl;
         return -1;
@@ -46,23 +42,17 @@ int main(int argc, char* argv[])
     printf("ok6\n");
     // Convertir le QPixmap en QImage
     QImage image = pixmap.toImage();
-    printf("ok7\n");
-    if (isTextDominant(image)) {
-        printf("ok8\n");
+    if (isTextDominant(image))
+    {
         std::cout << "Image avec texte dominant. Application du filtre de netteté." << std::endl;
-        printf("ok9\n");
         QImage sharpened = sharpenImage(image);
-        printf("ok10\n");
-        sharpened.save("filtered_text.jpg");
-        printf("ok11\n");
-    } else {
-        printf("ok12\n");
+        sharpened.save("/home/hugodush/Projet_C++/Comic_book_reader/build/users_data/filtered_text.jpg");
+    }
+    else 
+    {
         std::cout << "Image graphique dominante. Application du filtre d'amélioration des couleurs." << std::endl;
-        printf("ok13\n");
         QImage enhanced = enhanceColors(image);
-        printf("ok14\n");
-        enhanced.save("filtered_graphic.jpg");
-        printf("ok15\n");
+        enhanced.save("/home/hugodush/Projet_C++/Comic_book_reader/build/users_data/filtered_graphic.jpg");
     }
     return 0;
 

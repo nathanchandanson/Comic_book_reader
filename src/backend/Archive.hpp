@@ -1,14 +1,14 @@
 #ifndef ARCHIVE_HPP
 #define ARCHIVE_HPP
 
-#include <archive.h>
+#include <archive.h> // Utilisées pour manipuler les archives
 #include <archive_entry.h>
 #include <string>
-#include <vector>
-#include <map>
-#include <filesystem>
-#include <iostream>
-#include <fstream>
+#include <vector> // Utilisé pour lister les noms de pages
+#include <map> // Utilisé pour la librairie qui fait la correspondance entre nom et numéro de page
+#include <filesystem> // Utilisé pour la manipulation des répertoires (création ou vérification d'existence)
+#include <iostream> // peut-être pas util
+#include <fstream> // peut-être pas util
 
 
 class ComicExtractor{
@@ -24,14 +24,14 @@ public:
 
     bool openComic(); // Permet d'ouvrir le Comic, obtenir le nom des pages sans les décompresser.
     bool extractPage(const std::string& PageName, const std::string& outputDir); // Permet d'extraire une page spécifique dont on connait le nom
-    bool extractPageByNumber(int PageNumber, const std::string& outputDir); // Nouvelle méthode
-    std::vector<std::string> listPages();
+    bool extractPageByNumber(int PageNumber, const std::string& outputDir); // Reprend la méthode précédente, en allant chercher la page correspondant au numéro dans le dictionnaire (map) PageNumberToName
+    std::vector<std::string> listPages(); // Permet de lister le nom des pages présentes dans la BD
 };
 
-class ComicGenerator{
+class ComicGenerator{ // Cette classe permet de créer un Comic à partir d'un ensemble d'images, sans doutes contenues dans les champs de la classe Comic, ou dans un répertoire spécifique
 public:
     ComicGenerator() = default;
-    bool generateFromDirectory(const std::string& inputDir, const std::string& outputDir);
+    bool generateFromDirectory(const std::string& inputDir, const std::string& outputDir); // La méthode permettant de créer le nouveau Comic, à partir des images du répertoire inputDir, et qui le stocke sous forme d'archive dans le repertoire outputDir
 };
 
 
