@@ -52,7 +52,7 @@ bool isTextDominant(const QImage& image) //
 
     double textDensity = detectedText.size() / static_cast<double>(image.width() * image.height());
     // Nombre de caractères détectés / La taille de l'image
-    return textDensity > 0.05; // On a choisi cette valeure de facon très approximative
+    return textDensity > 0.0005; // On a choisi cette valeure de facon très approximative
 }
 
 QImage sharpenImage(const QImage& image)

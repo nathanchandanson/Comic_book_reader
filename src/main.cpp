@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QFile>
 #include <QDir>
+#include <QThread>
 
 #include "Archive.hpp"
 #include "Datatypes.hpp"
@@ -51,32 +52,20 @@ int main(int argc, char* argv[])
 
 
     /* Thread d'extraction des pages */
-    std::thread extractionThread(&ComicExtractor::extractAllPages, &reader);
+    // std::thread extractionThread(&ComicExtractor::extractAllPages, &reader);
 
+    // On le fait avec un QThread sinon le filtre ne peut pas s'appliquer car il a besoin de fonctions Qt non compatibles avec les std::thread
+    QThread extractionThread;
+    // Déplace l'objet Worker dans le thread
+    reader.moveToThread(&extractionThread);
+    // Connecte le signal de démarrage du thread à la méthode doWork
+    QObject::connect(&extractionThread, &QThread::started, &reader, &ComicExtractor::extractAllPages);
+    extractionThread.start();
 
     /* Launching the app */
     theWindow.show();
     app.exec();
-    extractionThread.join();
+    // extractionThread.join();
     
-    const QString imagePath = "/home/hugodush/Projet_C++/Comic_book_reader/data/comics/testImage2.jpg";  // Remplacer par ton fichier JPEG
-    QPixmap pixmap(imagePath);
-    if (pixmap.isNull()) {
-        std::cerr << "Erreur de chargement de l'image" << std::endl;
-        return -1;
-    }
-    QImage image = pixmap.toImage();
-    if (isTextDominant(image))
-    {
-        std::cout << "Image avec texte dominant. Application du filtre de netteté." << std::endl;
-        QImage sharpened = sharpenImage(image);
-        sharpened.save("/home/hugodush/Projet_C++/Comic_book_reader/build/users_data/filtered_text.jpg");
-    }
-    else 
-    {
-        std::cout << "Image graphique dominante. Application du filtre d'amélioration des couleurs." << std::endl;
-        QImage enhanced = enhanceColors(image);
-        enhanced.save("/home/hugodush/Projet_C++/Comic_book_reader/build/users_data/filtered_graphic.jpg");
-    }
     return 0;
 }

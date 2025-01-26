@@ -35,8 +35,8 @@ public:
 
     bool openComic(); // Permet d'ouvrir le Comic, obtenir le nom des pages sans les décompresser.
     bool extractPage(const std::string& PageName, const std::string& outputDir); // Permet d'extraire une page spécifique dont on connait le nom
-    bool extractPageByNumber(int PageNumber, const std::string& outputDir); // Nouvelle méthode
-    std::vector<std::string> listPages();
+    bool extractPageByNumber(int PageNumber, const std::string& outputDir); // Reprend la méthode précédente, en allant chercher la page correspondant au numéro dans le dictionnaire (map) PageNumberToName
+    std::vector<std::string> listPages(); // Permet de lister le nom des pages présentes dans la BD
     void extractAllPages();
 
 signals: 
@@ -45,9 +45,8 @@ signals:
 
 public slots:
     void updateCurrentPage(Image newPage, int newPageNumber, int maxPage) { currentPage = newPageNumber; currentPageChanged = 1; }; // Quand la page voulue a changé
-    bool extractPageByNumber(int PageNumber, const std::string& outputDir); // Reprend la méthode précédente, en allant chercher la page correspondant au numéro dans le dictionnaire (map) PageNumberToName
-    std::vector<std::string> listPages(); // Permet de lister le nom des pages présentes dans la BD
 };
+
 
 class ComicGenerator{ // Cette classe permet de créer un Comic à partir d'un ensemble d'images, sans doutes contenues dans les champs de la classe Comic, ou dans un répertoire spécifique
 public:
