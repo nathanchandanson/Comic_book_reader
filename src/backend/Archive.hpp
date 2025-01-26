@@ -40,11 +40,11 @@ public:
     void extractAllPages();
 
 signals: 
-    void firstPageExtracted();
-    void newPageExtracted(Image thePage, int thePageNumber);
+    void firstPageExtracted();  // Pour savoir quand la page actuelle a été extraite (et peut donc être affichée)
+    void newPageExtracted(Image thePage, int thePageNumber);    // Pour transmettre la page qu'on vient d'extraire
 
 public slots:
-    void updateCurrentPage(Image newPage, int newPageNumber, int maxPage) { currentPage = newPageNumber; currentPageChanged = 1; };
+    void updateCurrentPage(Image newPage, int newPageNumber, int maxPage) { currentPage = newPageNumber; currentPageChanged = 1; }; // Quand la page voulue a changé
 };
 
 class ComicGenerator{

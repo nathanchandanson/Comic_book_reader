@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     ComicExtractor reader("../data/comics/onePiece004.cbz");
     if(!reader.openComic()){return 1;}
 
-    std::vector<std::string> pages = reader.listPages();
+    std::vector<std::string> pages = reader.listPages();    // Récupérer toutes les pages
     // std::cout<< "Pages dans l'archive:\n";
     // for(const auto& page: pages) { std::cout<< "- "<< page <<std::endl;}
 
@@ -49,6 +49,7 @@ int main(int argc, char* argv[])
 
     /* Thread d'extraction des pages */
     std::thread extractionThread(&ComicExtractor::extractAllPages, &reader);
+
 
     /* Launching the app */
     theWindow.show();

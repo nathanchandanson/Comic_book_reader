@@ -26,8 +26,8 @@ class PageDisplay : public QWidget
     Q_OBJECT
 
 private:
-    QGraphicsScene *m_middleScene;
-    QGraphicsView *m_middleView;
+    QGraphicsScene *m_middleScene;  // Scène dans laquelle on met les images
+    QGraphicsView *m_middleView;    // View dans laquelle on affiche la scène
 
 public: 
     PageDisplay(QWidget *parent = 0);

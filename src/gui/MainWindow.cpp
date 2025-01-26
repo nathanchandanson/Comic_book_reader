@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setWindowTitle("Comic Book Reader");
     
+    // Initialisation des composants
     m_bottomBar = new BottomBar(this);
     m_pageViewer = new PageDisplay(this);
 
@@ -31,7 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
 /* Update label et view on pageChanged */
 void MainWindow::updatePageChanges(Image newPage, int newPageNumber, int maxPage)
 {
+    // Afficher la nouvelle image
     this->showImage(newPage);
+    // Update slider et indicator
     m_bottomBar->updatePageSlider(newPageNumber, maxPage);
     m_bottomBar->updatePageIndicator(newPageNumber, maxPage);
 }

@@ -151,13 +151,12 @@ void ComicExtractor::extractAllPages()
         {
             if(currentPageChanged){ currentPageChanged = false; break; }    // Si la page a changé, on doit repartir de la nouvelle page
             if(!extractedPages[(currentPage+i)%numPages]){ // Si la page n'a pas encore été extraite
-                extractPageByNumber((currentPage+i)%numPages, "../users_data");
-                extractedPages[(currentPage+i)%numPages] = true;
+                extractPageByNumber((currentPage+i)%numPages, "../users_data"); // On extrait la page
+                extractedPages[(currentPage+i)%numPages] = true;                // On dit qu'on l'a extraite
                 QString currentPagePath("../users_data/");
                 currentPagePath += PageNames[(currentPage+i)%numPages];
-                emit newPageExtracted(QPixmap(currentPagePath), (currentPage+i)%numPages);
+                emit newPageExtracted(QPixmap(currentPagePath), (currentPage+i)%numPages);  // On transmet la nouvelle page
                 if(i == 0){ emit firstPageExtracted(); }  // Needed to automatically refresh the PageDisplay when the wanted page is extracted
-
             }
         }
         if(i == numPages){ allPagesExtracted = true; return; }

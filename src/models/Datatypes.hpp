@@ -30,14 +30,14 @@ public:
     Image getPage() { return m_pages[m_pageNumber]; };
 
 signals:
-    void pageChanged(Image newPage, int newPageNumber, int maxPage);
+    void pageChanged(Image newPage, int newPageNumber, int maxPage);    // Quand l'index de page actuelle change
 
 public slots:
     void setPageNumber(int page);
     void incrementPageNumber();
     void decrementPageNumber();
     void addPage(Image thePage, int thePageNumber) { m_pages[thePageNumber] = thePage; };
-    void refreshPage() { emit pageChanged(m_pages[m_pageNumber], m_pageNumber, m_maxPageNumber); }
+    void refreshPage() { emit pageChanged(m_pages[m_pageNumber], m_pageNumber, m_maxPageNumber); }  // Pour renvoyer l'image actuelle
 };
 
 
