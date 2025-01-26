@@ -1,4 +1,5 @@
 #include "Archive.hpp"
+#include "Filtrage.hpp"
 
 #include <iostream> // Généralement utilisé pour faire des vérifications, signaler les pages existentes dans le comic, ou bien pour donner les messages d'erreur
 #include <fstream> // Utilisé pour 
@@ -162,11 +163,27 @@ void ComicExtractor::extractAllPages()
         {
             if(currentPageChanged){ currentPageChanged = false; break; }    // Si la page a changé, on doit repartir de la nouvelle page
             if(!extractedPages[(currentPage+i)%numPages]){ // Si la page n'a pas encore été extraite
+                // Extraction de la page
                 extractPageByNumber((currentPage+i)%numPages, "../users_data"); // On extrait la page
                 extractedPages[(currentPage+i)%numPages] = true;                // On dit qu'on l'a extraite
                 QString currentPagePath("../users_data/");
                 currentPagePath += PageNames[(currentPage+i)%numPages];
-                emit newPageExtracted(QPixmap(currentPagePath), (currentPage+i)%numPages);  // On transmet la nouvelle page
+                // Application des filtres
+                QPixmap pixmap(currentPagePath);
+                if (pixmap.isNull()) { std::cerr << "Erreur de chargement de l'image" << std::endl; }
+                QImage image = pixmap.toImage();
+                if (isTextDominant(image))
+                {
+                    std::cout << "Image avec texte dominant. Application du filtre de netteté." << (currentPage+i)%numPages << std::endl;
+                    QImage sharpened = sharpenImage(image);
+                    sharpened.save(currentPagePath);
+                } else{
+                    std::cout << "Image graphique dominante. Application du filtre d'amélioration des couleurs." << (currentPage+i)%numPages << std::endl;
+                    QImage enhanced = enhanceColors(image);
+                    enhanced.save(currentPagePath);
+                }
+                // On transmet la nouvelle page
+                emit newPageExtracted(QPixmap(currentPagePath), (currentPage+i)%numPages);
                 if(i == 0){ emit firstPageExtracted(); }  // Needed to automatically refresh the PageDisplay when the wanted page is extracted
             }
         }
