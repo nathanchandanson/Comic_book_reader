@@ -42,13 +42,13 @@ int main(int argc, char* argv[])
     QObject::connect(&theComic, &Comic::pageChanged, &theWindow, &MainWindow::updatePageChanges);
     // ComicExtractor vers Comic
     QObject::connect(&reader, &ComicExtractor::newPageExtracted, &theComic, &Comic::addPage);
+    QObject::connect(&reader, &ComicExtractor::firstPageExtracted, &theComic, &Comic::refreshPage);
     // Comic vers ComicExtractor
     QObject::connect(&theComic, &Comic::pageChanged, &reader, &ComicExtractor::updateCurrentPage);
 
 
     /* Thread d'extraction des pages */
     std::thread extractionThread(&ComicExtractor::extractAllPages, &reader);
-
 
     /* Launching the app */
     theWindow.show();

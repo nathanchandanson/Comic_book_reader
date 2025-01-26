@@ -40,6 +40,7 @@ public:
     void extractAllPages();
 
 signals: 
+    void firstPageExtracted();
     void newPageExtracted(Image thePage, int thePageNumber);
 
 public slots:

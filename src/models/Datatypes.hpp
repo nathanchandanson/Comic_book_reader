@@ -37,6 +37,7 @@ public slots:
     void incrementPageNumber();
     void decrementPageNumber();
     void addPage(Image thePage, int thePageNumber) { m_pages[thePageNumber] = thePage; };
+    void refreshPage() { emit pageChanged(m_pages[m_pageNumber], m_pageNumber, m_maxPageNumber); }
 };
 
 
