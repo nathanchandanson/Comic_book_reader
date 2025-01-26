@@ -156,6 +156,8 @@ void ComicExtractor::extractAllPages()
                 QString currentPagePath("../users_data/");
                 currentPagePath += PageNames[(currentPage+i)%numPages];
                 emit newPageExtracted(QPixmap(currentPagePath), (currentPage+i)%numPages);
+                if(i == 0){ emit firstPageExtracted(); }  // Needed to automatically refresh the PageDisplay when the wanted page is extracted
+
             }
         }
         if(i == numPages){ allPagesExtracted = true; return; }
