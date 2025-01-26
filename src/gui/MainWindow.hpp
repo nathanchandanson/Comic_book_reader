@@ -10,8 +10,8 @@ class MainWindow : public QWidget
     Q_OBJECT
 
 private:
+    // Composants de la fenêtre
     BottomBar *m_bottomBar;
-
     PageDisplay *m_pageViewer;
 
 public: 
@@ -19,13 +19,13 @@ public:
 
     void showImage(Image image) { m_pageViewer->showImage(image); }
 
-signals: // Lier avec les signaux des components.
+signals:
     void nextPagePressed();
     void previousPagePressed();
     void pageSliderValueChanged(int page);
 
 public slots:
-    void updatePageChanges(Image newPage, int newPageNumber, int maxPage);
+    void updatePageChanges(Image newPage, int newPageNumber, int maxPage);  // Pour process tous les changements quand une page change
 };
 
 #endif

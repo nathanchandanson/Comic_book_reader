@@ -112,7 +112,7 @@ BottomBar::BottomBar(QWidget *parent)
 void BottomBar::updatePageSlider(int page, int maxPage)
 {
     m_pageSlider->setValue(page);
-    m_pageSlider->setMaximum(maxPage-1);
+    m_pageSlider->setMaximum(maxPage-1);    // -1 car la première page est celle d'index 0
 }
 
 /* Update du label */
