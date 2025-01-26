@@ -1,10 +1,12 @@
-#include <QPixmap>
-#include <QImage>
 // Il faut télécharger les librairies suivantes:
 // sudo apt install tesseract-ocr
 // sudo apt install libtesseract-dev
-#include <tesseract/baseapi.h>
-#include <leptonica/allheaders.h>
+
+#include <QPixmap>
+#include <QImage>
+
+#include <tesseract/baseapi.h> // Utilisée pour faire la reconnaissance de texte sur les images
+#include <leptonica/allheaders.h> // Utilisée par Tesseract pour manipuler les données d'image
 #include <QtGui>
 #include <QGraphicsEffect>
 #include <QGraphicsBlurEffect>
@@ -14,45 +16,46 @@
 
 #include "Filtrage.hpp"
 
-QImage QpixmapToQImage(const QPixmap& pixmap)
-{   
-    return pixmap.toImage();
-}
 
-bool isTextDominant(const QImage& image)
+bool isTextDominant(const QImage& image) // 
 {
-    QImage temp = image.convertToFormat(QImage::Format_RGB888); // Cette conversion doit être faite pour pouvoir utiliser les outils de Tesseract
-    printf("ok16\n");
-    QByteArray byteArray;
-    QBuffer buffer(&byteArray);
-    temp.save(&buffer, "PNG");
+    QImage temp = image.convertToFormat(QImage::Format_RGB888); // 8bits par canal de couleur (R,G,B) pour chaque pixel
+    // Cette conversion est nécéssaire pour effectuer le traitement avec la librairie Tesseract (pour la reconnaissance optique)
+
+    QByteArray byteArray; // Pour stocker les données binaires de l'image
+    QBuffer buffer(&byteArray); // Le buffer sert à faciliter la lecture et l'écritue 
+    temp.save(&buffer, "PNG"); // Stockage dans le buffer (PNG car format compact et compressé qui préserve la qualité de l'image)
+
     Pix* pix = pixReadMem(reinterpret_cast<const l_uint8*>(byteArray.constData()), byteArray.size());
+    // "reinterpret_cast" pour convertir les données brutes au format accepté par "pixReadMem"
+    // "pixReadMem" crée un objet Pix pour représenter l'image (de la librairie Leptonica)
+
     if (pix == nullptr) {
         std::cerr << "Erreur de lecture de l'image avec Leptonica" << std::endl;
         return false;
     }
-    printf("ok21\n");
-    tesseract::TessBaseAPI ocr;
-    printf("ok22\n");
-    ocr.Init(nullptr, "eng", tesseract::OEM_LSTM_ONLY);
+
+    tesseract::TessBaseAPI ocr; // Traitement OCR (Reconnaissance Optique de Caractères), permet de récupérer les méthodes nécéssaires à la reconnaissance du texte
+    ocr.Init(nullptr, "eng", tesseract::OEM_LSTM_ONLY); // Ici on a choisi l'anglais, mais on aurait pu rajouter la langue en argument de la fonction pour pouvoir adapter la détection du texte en fonction de la langue du Comic
+    // On utilise un réseau de neurones LSTM pour effectuer la reconnaissance
     ocr.SetImage(pix);
-    printf("ok17\n");
     char* text = ocr.GetUTF8Text();
     std::string detectedText(text);
+    
     ocr.End();
     pixDestroy(&pix);
     delete[] text;
-    printf("ok18\n");
+    // Pour néttoyer les allocations
+
     double textDensity = detectedText.size() / static_cast<double>(image.width() * image.height());
-    return textDensity > 0.05;
+    // Nombre de caractères détectés / La taille de l'image
+    return textDensity > 0.05; // On a choisi cette valeure de facon très approximative
 }
 
 QImage sharpenImage(const QImage& image)
 {
-    printf("ok19\n");
     QGraphicsScene scene;
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
-    printf("ok20\n");
     QGraphicsBlurEffect* effect = new QGraphicsBlurEffect();
     effect->setBlurRadius(0.5);  // Réglage du rayon de flou
     item->setGraphicsEffect(effect);
