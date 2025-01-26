@@ -2,19 +2,25 @@
 // sudo apt install tesseract-ocr
 // sudo apt install libtesseract-dev
 
+#include "Filtrage.hpp"
+
 #include <QPixmap>
 #include <QImage>
 
 #include <tesseract/baseapi.h> // Utilisée pour faire la reconnaissance de texte sur les images
 #include <leptonica/allheaders.h> // Utilisée par Tesseract pour manipuler les données d'image
+
+// Pour les filtres:
 #include <QtGui>
 #include <QGraphicsEffect>
-#include <QGraphicsBlurEffect>
-#include <iostream>
+#include <QGraphicsBlurEffect> 
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 
-#include "Filtrage.hpp"
+#include <iostream>
+
+
+
 
 
 bool isTextDominant(const QImage& image) // 
@@ -55,15 +61,15 @@ bool isTextDominant(const QImage& image) //
 QImage sharpenImage(const QImage& image)
 {
     QGraphicsScene scene;
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
-    QGraphicsBlurEffect* effect = new QGraphicsBlurEffect();
-    effect->setBlurRadius(0.5);  // Réglage du rayon de flou
-    item->setGraphicsEffect(effect);
+    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image)); // Ici la conversion en QPixmap est nécéssaire pour utiliser la fonction "QGraphicsPixmapItem"
+    QGraphicsBlurEffect* effect = new QGraphicsBlurEffect(); // Applique un effet de flou gaussien
+    effect->setBlurRadius(0.5);  // Définit l'intensité du flou (ici 0,5 correspond à un flou léger)
+    item->setGraphicsEffect(effect); // Application du flou
 
     scene.addItem(item);
     scene.setSceneRect(image.rect());
 
-    QImage result(image.size(), QImage::Format_ARGB32);
+    QImage result(image.size(), QImage::Format_ARGB32); // Nouvelle Image créée
     QPainter painter(&result);
     scene.render(&painter);
     return result;
@@ -72,16 +78,16 @@ QImage sharpenImage(const QImage& image)
 
 QImage enhanceColors(const QImage& image)
 {
-    QImage result = image.copy();
+    QImage result = image.copy(); // On ne veut pas modifier directement l'image source (on veut garder une version originale)
     for(int y = 0; y< result.height(); ++y)
     {
         for(int x = 0; x< result.width(); ++x)
         {
-            QColor color = result.pixelColor(x,y);
+            QColor color = result.pixelColor(x,y); // Pour chaque pixel, on intensifie chaque couleur 
             int red = std::min(color.red() * 1.2, 255.0);
-            int green = std::min(color.green() * 1.22, 255.0);
+            int green = std::min(color.green() * 1.2, 255.0);
             int blue = std::min(color.blue() * 1.2, 255.0);
-            color.setRgb(red, green, blue);
+            color.setRgb(red, green, blue); 
             result.setPixelColor(x, y, color);
         }
     }

@@ -39,8 +39,6 @@ int main(int argc, char* argv[])
         std::cerr << "Erreur de chargement de l'image" << std::endl;
         return -1;
     }
-    printf("ok6\n");
-    // Convertir le QPixmap en QImage
     QImage image = pixmap.toImage();
     if (isTextDominant(image))
     {
